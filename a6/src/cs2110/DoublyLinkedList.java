@@ -123,7 +123,7 @@ public class DoublyLinkedList<T> implements CS2110List<T> {
      * Returns the node at the given 'index'.
      */
     private DNode nodeAt(int index) {
-        if (index < (size >> 1)) {
+        if (index < (size / 2)) {
             DNode curr = head;
             for (int i = 0; i < index; i++) {
                 curr = curr.next;
