@@ -12,10 +12,10 @@ public class ListUtilities {
      * when iterated in the forward or reverse directions.
      */
     public static <T> boolean isMirrored1(CS2110List<T> list) {
-        int n = list.size();
-        for (int i = 0; i < n / 2; i++) {
+        int listSize = list.size();
+        for (int i = 0; i < listSize / 2; i++) {
             T front = list.get(i);
-            T back = list.get(n - 1 - i);
+            T back = list.get(listSize - 1 - i);
             if (front == null || back == null) {
                 return false;
             }
@@ -31,14 +31,18 @@ public class ListUtilities {
      * when iterated in the forward or reverse directions.
      */
     public static <T> boolean isMirrored2(DoublyLinkedList<T> list) {
-        Iterator<T> fwd = list.iterator();
-        Iterator<T> rev = list.reverseIterator();
-        while (fwd.hasNext() && rev.hasNext()) {
-            T a = fwd.next();
-            T b = rev.next();
-            if (a == null || b == null) return false;
-            if (!a.equals(b)) return false;
+        Iterator<T> fwdIterator = list.iterator();
+        Iterator<T> revIterator = list.reverseIterator();
+        while (fwdIterator.hasNext() && revIterator.hasNext()) {
+            T firstIterator = fwdIterator.next();
+            T lastIterator = revIterator.next();
+            if (firstIterator == null || lastIterator == null) {
+                return false;
+            }
+            if (!firstIterator.equals(lastIterator)) {
+                return false;
+            }
         }
-        return !fwd.hasNext() && !rev.hasNext();
+        return !fwdIterator.hasNext() && !revIterator.hasNext();
     }
 }

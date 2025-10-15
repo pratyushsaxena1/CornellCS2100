@@ -56,7 +56,7 @@ public class DoublyLinkedList<T> implements CS2110List<T> {
     private DNode tail;
 
     /**
-     * Assert that this object satisfies its class invariants.
+     * Assert that this object satisfies all of its class invariants.
      */
     private void assertInv() {
         assert size >= 0;
@@ -98,67 +98,96 @@ public class DoublyLinkedList<T> implements CS2110List<T> {
         assertInv();
     }
 
-    /** Throws NPE if elem is null. This list does not allow null elements. */
-    private static void requireNonNull(Object elem) {
-        assert elem != null;
+    /**
+     * Assert that this object isn't null.
+     */
+    private static void requireNonNull(Object element) {
+        assert element != null;
     }
 
-    /** Bounds check for 0 <= index < size. */
+    /**
+     * Assert that index >= 0 && index < size.
+     */
     private void checkElementIndex(int index) {
         assert index >= 0 && index < size;
     }
 
-    /** Bounds check for insertion: 0 <= index <= size. */
+    /**
+     * Assert that index >= 0 && index <= size.
+     */
     private void checkPositionIndex(int index) {
         assert index >= 0 && index <= size;
     }
 
-    /** Returns node at index in O(min(index, size-1-index)). */
+    /**
+     * Returns the node at the given 'index'.
+     */
     private DNode nodeAt(int index) {
         if (index < (size >> 1)) {
-            DNode x = head;
-            for (int i = 0; i < index; i++) x = x.next;
-            return x;
+            DNode curr = head;
+            for (int i = 0; i < index; i++) {
+                curr = curr.next;
+            }
+            return curr;
         } else {
-            DNode x = tail;
-            for (int i = size - 1; i > index; i--) x = x.prev;
-            return x;
+            DNode curr = tail;
+            for (int i = size - 1; i > index; i--) {
+                curr = curr.prev;
+            }
+            return curr;
         }
     }
 
-    /** Link elem as last node (append) in O(1). */
-    private void linkLast(T elem) {
+    /**
+     * Link the element as the last node.
+     */
+    private void linkLast(T element) {
         DNode last = tail;
-        DNode x = new DNode(elem, last, null);
-        tail = x;
-        if (last == null) head = x;
-        else last.next = x;
+        DNode curr = new DNode(element, last, null);
+        tail = curr;
+        if (last == null) {
+            head = curr;
+        } else {
+            last.next = curr;
+        }
         size++;
     }
 
-    /** Link elem before given successor node `succ` in O(1). */
-    private void linkBefore(T elem, DNode succ) {
-        DNode pred = succ.prev;
-        DNode x = new DNode(elem, pred, succ);
-        succ.prev = x;
-        if (pred == null) head = x;
-        else pred.next = x;
+    /**
+     * Link the element before the given 'successor' node.
+     */
+    private void linkBefore(T element, DNode successor) {
+        DNode previous = successor.prev;
+        DNode curr = new DNode(element, previous, successor);
+        successor.prev = curr;
+        if (previous == null) {
+            head = curr;
+        } else {
+            previous.next = curr;
+        }
         size++;
     }
 
-    /** Unlink given node x and return its element. O(1). */
-    private T unlink(DNode x) {
-        DNode pred = x.prev;
-        DNode succ = x.next;
-
-        if (pred == null) head = succ;
-        else { pred.next = succ; x.prev = null; }
-
-        if (succ == null) tail = pred;
-        else { succ.prev = pred; x.next = null; }
-
-        T elem = x.data;
-        x.data = null;
+    /**
+     * Unlink the node 'curr' and return its element.
+     */
+    private T unlink(DNode curr) {
+        DNode previous = curr.prev;
+        DNode successor = curr.next;
+        if (previous == null) {
+            head = successor;
+        } else {
+            previous.next = successor;
+            curr.prev = null;
+        }
+        if (successor == null) {
+            tail = previous;
+        } else {
+            successor.prev = previous;
+            curr.next = null;
+        }
+        T elem = curr.data;
+        curr.data = null;
         size--;
         return elem;
     }
@@ -195,9 +224,13 @@ public class DoublyLinkedList<T> implements CS2110List<T> {
 
     @Override
     public boolean contains(T elem) {
-        if (elem == null) return false;
-        for (DNode x = head; x != null; x = x.next) {
-            if (elem.equals(x.data)) return true;
+        if (elem == null) {
+            return false;
+        }
+        for (DNode curr = head; curr != null; curr = curr.next) {
+            if (elem.equals(curr.data)) {
+                return true;
+            }
         }
         return false;
     }
@@ -206,8 +239,10 @@ public class DoublyLinkedList<T> implements CS2110List<T> {
     public int indexOf(T elem) {
         requireNonNull(elem);
         int i = 0;
-        for (DNode x = head; x != null; x = x.next, i++) {
-            if (elem.equals(x.data)) return i;
+        for (DNode curr = head; curr != null; curr = curr.next, i++) {
+            if (elem.equals(curr.data)) {
+                return i;
+            }
         }
         return i;
     }
@@ -231,14 +266,15 @@ public class DoublyLinkedList<T> implements CS2110List<T> {
     @Override
     public void delete(T elem) {
         assert elem != null;
-        for (DNode x = head; x != null; x = x.next) {
-            if (elem.equals(x.data)) {
-                unlink(x);
+        for (DNode curr = head; curr != null; curr = curr.next) {
+            if (elem.equals(curr.data)) {
+                unlink(curr);
                 assertInv();
                 return;
             }
         }
     }
+
     /**
      * Return an iterator over the elements of this list (in forward order). To ensure the
      * functionality of this iterator, this list is not mutated while the iterator is in use.
@@ -286,17 +322,18 @@ public class DoublyLinkedList<T> implements CS2110List<T> {
     }
 
     private class ReverseIterator implements Iterator<T> {
-        private DNode nextToVisit = tail;   // start at the end
+
+        private DNode nextNode = tail;
 
         @Override
         public boolean hasNext() {
-            return nextToVisit != null;
+            return nextNode != null;
         }
 
         @Override
         public T next() {
-            T elem = nextToVisit.data;
-            nextToVisit = nextToVisit.prev; // walk backward
+            T elem = nextNode.data;
+            nextNode = nextNode.prev;
             return elem;
         }
     }
