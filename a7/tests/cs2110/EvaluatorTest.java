@@ -7,8 +7,7 @@ import org.junit.jupiter.api.Test;
 
 public class EvaluatorTest {
 
-    @DisplayName("WHEN we evaluate an expression containing only a single digit, THEN that digit "
-            + "is returned.")
+    @DisplayName("WHEN we evaluate an expression containing only a single digit, THEN that digit is returned.")
     @Test
     public void testDigit() throws MalformedExpressionException {
         assertEquals(0, ExpressionEvaluator.evaluate("0"));
@@ -16,8 +15,7 @@ public class EvaluatorTest {
         assertEquals(5, ExpressionEvaluator.evaluate("5"));
     }
 
-    @DisplayName("WHEN we evaluate an expression containing only a single digit within "
-            + "parentheses, THEN that digit is returned.")
+    @DisplayName("WHEN we evaluate an expression containing only a single digit within parentheses, THEN that digit is returned.")
     @Test
     public void testParenthesizedDigit() throws MalformedExpressionException {
         assertEquals(0, ExpressionEvaluator.evaluate("(0)"));
@@ -25,16 +23,15 @@ public class EvaluatorTest {
         assertEquals(4, ExpressionEvaluator.evaluate("((4))"));
     }
 
-    @DisplayName("WHEN we evaluate an expression containing one addition operation applied to two "
-            + "single-digit operands, THEN the correct result is returned.")
+    @DisplayName("WHEN we evaluate an expression containing one addition operation applied to two single-digit operands, THEN the correct result is returned.")
     @Test
     public void testOneAddition() throws MalformedExpressionException {
         assertEquals(3, ExpressionEvaluator.evaluate("1+2"));
         assertEquals(11, ExpressionEvaluator.evaluate("4+7"));
         assertEquals(9, ExpressionEvaluator.evaluate("9+0"));
     }
-    @DisplayName("WHEN we evaluate an expression containing one multiplication operation applied to "
-            + "two single-digit operands, THEN the correct result is returned.")
+
+    @DisplayName("WHEN we evaluate an expression containing one multiplication operation applied to two single-digit operands, THEN the correct result is returned.")
     @Test
     public void testOneMultiplication() throws MalformedExpressionException {
         assertEquals(2, ExpressionEvaluator.evaluate("1*2"));
@@ -42,9 +39,7 @@ public class EvaluatorTest {
         assertEquals(0, ExpressionEvaluator.evaluate("9*0"));
     }
 
-    @DisplayName("WHEN we evaluate an expression containing one addition operation applied to two "
-            + "single-digit operands with additional parentheses, THEN the correct result is "
-            + "returned.")
+    @DisplayName("WHEN we evaluate an expression containing one addition operation applied to two single-digit operands with additional parentheses, THEN the correct result is returned.")
     @Test
     public void testOneOperatorParentheses() throws MalformedExpressionException {
         assertEquals(3, ExpressionEvaluator.evaluate("(1+2)"));
@@ -56,8 +51,7 @@ public class EvaluatorTest {
         assertEquals(3, ExpressionEvaluator.evaluate("((1)+(2))"));
     }
 
-    @DisplayName("WHEN an expression contains multiple of the same operator, THEN "
-            + "it is correctly evaluated")
+    @DisplayName("WHEN an expression contains multiple of the same operator, THEN it is correctly evaluated.")
     @Test
     public void testOneOperatorMultipleTimes() throws MalformedExpressionException {
         assertEquals(6, ExpressionEvaluator.evaluate("1+2+3"));
@@ -67,8 +61,7 @@ public class EvaluatorTest {
         assertEquals(180, ExpressionEvaluator.evaluate("5*6*2*3"));
     }
 
-    @DisplayName("WHEN an expression contains both addition and multiplication but no "
-            + "parentheses, THEN the order of operations is respected.")
+    @DisplayName("WHEN an expression contains both addition and multiplication but no parentheses, THEN the order of operations is respected.")
     @Test
     public void testBothOperators() throws MalformedExpressionException {
         assertEquals(7, ExpressionEvaluator.evaluate("1+2*3"));
@@ -80,8 +73,7 @@ public class EvaluatorTest {
         assertEquals(10, ExpressionEvaluator.evaluate("1*2*3+4"));
     }
 
-    @DisplayName("WHEN an expression contains both addition and multiplication and "
-            + "non-nested parentheses, THEN the order of operations is respected.")
+    @DisplayName("WHEN an expression contains both addition and multiplication and non-nested parentheses, THEN the order of operations is respected.")
     @Test
     public void testBothOperatorsParentheses() throws MalformedExpressionException {
         assertEquals(14, ExpressionEvaluator.evaluate("2+(3*4)"));
@@ -92,25 +84,21 @@ public class EvaluatorTest {
         assertEquals(70, ExpressionEvaluator.evaluate("2*(3+4)*5"));
     }
 
-    @DisplayName("WHEN an expression contains both addition and multiplication and "
-            + "nested parentheses, THEN the order of operations is respected.")
+    @DisplayName("WHEN an expression contains both addition and multiplication and nested parentheses, THEN the order of operations is respected.")
     @Test
     public void testBothOperatorsNestedParentheses() throws MalformedExpressionException {
         assertEquals(94, ExpressionEvaluator.evaluate("2*(3+4*(5+6))"));
     }
 
-    // TODO: Add unit testing for all of the features that you add to the ExpressionEvaluator
-    //  over the course of the assignment. Be sure that your tests have descriptive method names
-    //  and @DisplayNames. Your tests will be evaluated for their correctness and coverage.
-
-    @DisplayName("WHEN evaluating expressions with multi-digit operands, THEN correct values are returned")
+    @DisplayName("WHEN evaluating expressions with multi-digit operands, THEN correct values are returned.")
     @Test
     public void testMultiDigitOperands() throws MalformedExpressionException {
         assertEquals(579, ExpressionEvaluator.evaluate("123+456"));
         assertEquals(25000, ExpressionEvaluator.evaluate("1000*25"));
         assertEquals(6336, ExpressionEvaluator.evaluate("66*96"));
     }
-    @DisplayName("WHEN multi-digit and single-digit operands are mixed, THEN results are correct")
+
+    @DisplayName("WHEN multi-digit and single-digit operands are mixed, THEN results are correct.")
     @Test
     public void testMixedMultiAndSingleDigit() throws MalformedExpressionException {
         assertEquals(123, ExpressionEvaluator.evaluate("2+3*40+1"));
@@ -118,7 +106,7 @@ public class EvaluatorTest {
         assertEquals(68, ExpressionEvaluator.evaluate("12*3+4*8"));
     }
 
-    @DisplayName("WHEN multi-digit operands are used with parentheses, THEN results are correct")
+    @DisplayName("WHEN multi-digit operands are used with parentheses, THEN results are correct.")
     @Test
     public void testMultiDigitOperandsWithParentheses() throws MalformedExpressionException {
         assertEquals(579, ExpressionEvaluator.evaluate("(123+456)"));
@@ -128,7 +116,7 @@ public class EvaluatorTest {
         assertEquals(579, ExpressionEvaluator.evaluate("((123)+(456))"));
     }
 
-    @DisplayName("WHEN multi-digit and single-digit operands are mixed with parentheses, THEN results are correct")
+    @DisplayName("WHEN multi-digit and single-digit operands are mixed with parentheses, THEN results are correct.")
     @Test
     public void testMixedMultiAndSingleDigitWithParentheses() throws MalformedExpressionException {
         assertEquals(123, ExpressionEvaluator.evaluate("(2+(3*40)+1)"));
@@ -138,7 +126,7 @@ public class EvaluatorTest {
         assertEquals(201, ExpressionEvaluator.evaluate("((2+3)*40)+1"));
     }
 
-    @DisplayName("WHEN whitespace appears between operands and operators, THEN it is ignored")
+    @DisplayName("WHEN whitespace appears between operands and operators, THEN it is ignored.")
     @Test
     public void testWhitespaceAroundTokens() throws MalformedExpressionException {
         assertEquals(23, ExpressionEvaluator.evaluate("  3  +  4   *   5  "));
@@ -147,32 +135,38 @@ public class EvaluatorTest {
         assertEquals(579, ExpressionEvaluator.evaluate(" ( 123  + 456 ) "));
     }
 
-    @DisplayName("WHEN whitespace appears between digits of the same number, THEN it throws a MalformedExpressionException")
+    @DisplayName("WHEN whitespace appears between digits of the same number, THEN it throws a MalformedExpressionException.")
     @Test
     public void testWhitespaceInsideNumberIsError() {
-        assertThrows(MalformedExpressionException.class, () -> ExpressionEvaluator.evaluate("1 23"));
-        assertThrows(MalformedExpressionException.class, () -> ExpressionEvaluator.evaluate("12 3"));
-        assertThrows(MalformedExpressionException.class, () -> ExpressionEvaluator.evaluate("(1 2)+3"));
-        assertThrows(MalformedExpressionException.class, () -> ExpressionEvaluator.evaluate("4*(5  6)"));
-        assertThrows(MalformedExpressionException.class, () -> ExpressionEvaluator.evaluate("  9  9  "));
+        assertThrows(MalformedExpressionException.class,
+                () -> ExpressionEvaluator.evaluate("1 23"));
+        assertThrows(MalformedExpressionException.class,
+                () -> ExpressionEvaluator.evaluate("12 3"));
+        assertThrows(MalformedExpressionException.class,
+                () -> ExpressionEvaluator.evaluate("(1 2)+3"));
+        assertThrows(MalformedExpressionException.class,
+                () -> ExpressionEvaluator.evaluate("4*(5  6)"));
+        assertThrows(MalformedExpressionException.class,
+                () -> ExpressionEvaluator.evaluate("  9  9  "));
     }
 
-    @DisplayName("WHEN an expression mixes whitespace with operators and parentheses, THEN value is correct")
+    @DisplayName("WHEN an expression mixes whitespace with operators and parentheses, THEN value is correct.")
     @Test
     public void testWhitespaceMixedStructure() throws MalformedExpressionException {
         assertEquals(123, ExpressionEvaluator.evaluate(" 2 +   3 * 40   + 1 "));
         assertEquals(201, ExpressionEvaluator.evaluate(" ( ( 2 + 3 )  *  40 ) + 1 "));
-        assertEquals(68,  ExpressionEvaluator.evaluate(" ( 12 * 3 )  +  ( 4 * 8 ) "));
+        assertEquals(68, ExpressionEvaluator.evaluate(" ( 12 * 3 )  +  ( 4 * 8 ) "));
     }
 
-    @DisplayName("WHEN an expression is only whitespace or ends with an operator, THEN it is malformed")
+    @DisplayName("WHEN an expression is only whitespace or ends with an operator, THEN it is malformed.")
     @Test
     public void testOnlyWhitespaceOrTrailingOperatorIsError() {
         assertThrows(MalformedExpressionException.class, () -> ExpressionEvaluator.evaluate("   "));
-        assertThrows(MalformedExpressionException.class, () -> ExpressionEvaluator.evaluate("3 +  "));
+        assertThrows(MalformedExpressionException.class,
+                () -> ExpressionEvaluator.evaluate("3 +  "));
     }
 
-    @DisplayName("WHEN evaluating simple subtraction, THEN correct results are returned")
+    @DisplayName("WHEN evaluating simple subtraction, THEN correct results are returned.")
     @Test
     public void testSimpleSubtraction() throws MalformedExpressionException {
         assertEquals(2, ExpressionEvaluator.evaluate("5-3"));
@@ -180,7 +174,7 @@ public class EvaluatorTest {
         assertEquals(-4, ExpressionEvaluator.evaluate("1-5"));
     }
 
-    @DisplayName("WHEN multiple subtractions are chained, THEN they are left-associative")
+    @DisplayName("WHEN multiple subtractions are chained, THEN they are left-associative.")
     @Test
     public void testChainedSubtraction() throws MalformedExpressionException {
         assertEquals(7, ExpressionEvaluator.evaluate("10-2-1"));
@@ -188,7 +182,7 @@ public class EvaluatorTest {
         assertEquals(85, ExpressionEvaluator.evaluate("100-10-5"));
     }
 
-    @DisplayName("WHEN subtraction and addition are mixed, THEN left-associativity is preserved")
+    @DisplayName("WHEN subtraction and addition are mixed, THEN left-associativity is preserved.")
     @Test
     public void testSubtractionAndAddition() throws MalformedExpressionException {
         assertEquals(9, ExpressionEvaluator.evaluate("10-2+1"));
@@ -196,7 +190,7 @@ public class EvaluatorTest {
         assertEquals(4, ExpressionEvaluator.evaluate("5-3+4-2"));
     }
 
-    @DisplayName("WHEN subtraction interacts with multiplication, THEN multiplication has higher precedence")
+    @DisplayName("WHEN subtraction interacts with multiplication, THEN multiplication has higher precedence.")
     @Test
     public void testSubtractionWithMultiplication() throws MalformedExpressionException {
         assertEquals(4, ExpressionEvaluator.evaluate("10-2*3"));
@@ -205,7 +199,7 @@ public class EvaluatorTest {
         assertEquals(-14, ExpressionEvaluator.evaluate("10-2*3*4"));
     }
 
-    @DisplayName("WHEN subtraction is combined with parentheses, THEN parentheses alter normal precedence")
+    @DisplayName("WHEN subtraction is combined with parentheses, THEN parentheses alter normal precedence.")
     @Test
     public void testSubtractionWithParentheses() throws MalformedExpressionException {
         assertEquals(7, ExpressionEvaluator.evaluate("10-(2+1)"));
@@ -214,7 +208,7 @@ public class EvaluatorTest {
         assertEquals(10, ExpressionEvaluator.evaluate("((10-2)+(3-1))"));
     }
 
-    @DisplayName("WHEN multi-digit numbers and subtraction are combined, THEN results are correct")
+    @DisplayName("WHEN multi-digit numbers and subtraction are combined, THEN results are correct.")
     @Test
     public void testMultiDigitWithSubtraction() throws MalformedExpressionException {
         assertEquals(77, ExpressionEvaluator.evaluate("100-23"));
@@ -222,51 +216,43 @@ public class EvaluatorTest {
         assertEquals(579, ExpressionEvaluator.evaluate("1234-655"));
     }
 
-    @DisplayName("WHEN unary negation appears before a number or parenthesized expression, THEN it negates the value")
+    @DisplayName("WHEN unary negation appears before a number or parenthesized expression, THEN it negates the value.")
     @Test
     public void testUnaryNegationBasics() throws MalformedExpressionException {
         assertEquals(-5, ExpressionEvaluator.evaluate("-5"));
         assertEquals(-5, ExpressionEvaluator.evaluate("-(3+2)"));
         assertEquals(-5, ExpressionEvaluator.evaluate("---5"));
-        assertEquals(5,  ExpressionEvaluator.evaluate("--5"));
+        assertEquals(5, ExpressionEvaluator.evaluate("--5"));
     }
 
-    @DisplayName("WHEN unary negation is combined with multiplication, THEN precedence and sign work correctly")
+    @DisplayName("WHEN unary negation is combined with multiplication, THEN precedence and sign work correctly.")
     @Test
     public void testUnaryNegationWithMultiplication() throws MalformedExpressionException {
-        assertEquals(-5,  ExpressionEvaluator.evaluate("5*-1"));
+        assertEquals(-5, ExpressionEvaluator.evaluate("5*-1"));
         assertEquals(-24, ExpressionEvaluator.evaluate("2*-3*4"));
-        assertEquals(24,  ExpressionEvaluator.evaluate("-2*-3*4"));
-        assertEquals(-5,  ExpressionEvaluator.evaluate("-(2*3)+1"));
+        assertEquals(24, ExpressionEvaluator.evaluate("-2*-3*4"));
+        assertEquals(-5, ExpressionEvaluator.evaluate("-(2*3)+1"));
     }
 
-    @DisplayName("WHEN unary negation mixes with addition/subtraction, THEN results are correct")
+    @DisplayName("WHEN unary negation mixes with addition and/or subtraction, THEN results are correct.")
     @Test
     public void testUnaryNegationWithAddSub() throws MalformedExpressionException {
-        assertEquals(3,   ExpressionEvaluator.evaluate("5+-2"));
-        assertEquals(-7,  ExpressionEvaluator.evaluate("-2-5"));
-        assertEquals(11,  ExpressionEvaluator.evaluate("20+-(3*3)"));
+        assertEquals(3, ExpressionEvaluator.evaluate("5+-2"));
+        assertEquals(-7, ExpressionEvaluator.evaluate("-2-5"));
+        assertEquals(11, ExpressionEvaluator.evaluate("20+-(3*3)"));
     }
 
-    @DisplayName("implicit multiplication tests")
+    @DisplayName("WHEN implicit multiplication occurs, THEN results are correct.")
     @Test
     public void testImplicitMultiplication() throws MalformedExpressionException {
-        // 1) ')' followed by '('
         assertEquals(12, ExpressionEvaluator.evaluate("(3)(4)"));
         assertEquals(25, ExpressionEvaluator.evaluate("(2+3)(4+1)"));
-        assertEquals(6,  ExpressionEvaluator.evaluate("((1+1))(3)"));
-
-        // 2) number followed by '('
+        assertEquals(6, ExpressionEvaluator.evaluate("((1+1))(3)"));
         assertEquals(25, ExpressionEvaluator.evaluate("5(2+3)"));
         assertEquals(31, ExpressionEvaluator.evaluate("3(4+5) + 2(1+1)"));
-
-        // 3) ')' followed by number
-        assertEquals(9,  ExpressionEvaluator.evaluate("(1+2)3"));
+        assertEquals(9, ExpressionEvaluator.evaluate("(1+2)3"));
         assertEquals(-6, ExpressionEvaluator.evaluate("(-2)3"));
-
-        // Mixed with precedence and other ops
-        assertEquals(2,  ExpressionEvaluator.evaluate("10-2(3+1)"));
+        assertEquals(2, ExpressionEvaluator.evaluate("10-2(3+1)"));
         assertEquals(24, ExpressionEvaluator.evaluate("2(3)(4)"));
     }
-
 }

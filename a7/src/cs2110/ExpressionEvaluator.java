@@ -18,8 +18,7 @@ public class ExpressionEvaluator {
 
         boolean expectingOperator = false; // in infix notation, the first operand comes before an operator
         char[] expressionArray = expr.toCharArray();
-        for (int i = 0; i < expressionArray.length;
-                i++) { // arrays are Iterable, so can be used in enhanced-for loops
+        for (int i = 0; i < expressionArray.length; i++) {
             char c = expressionArray[i];
             if (c == '(') {
                 if (expectingOperator) {
@@ -45,8 +44,8 @@ public class ExpressionEvaluator {
                     throw new MalformedExpressionException(
                             "'+' must follow an operand, not an operator");
                 }
-                while (!operators.isEmpty() && (operators.peek() == '*'
-                        || operators.peek() == '+' || operators.peek() == '-')) {
+                while (!operators.isEmpty() && (operators.peek() == '*' || operators.peek() == '+'
+                        || operators.peek() == '-')) {
                     oneStepSimplify(operands, operators);
                 }
                 operators.push('+');
@@ -56,9 +55,8 @@ public class ExpressionEvaluator {
                     operands.push(0);
                     operators.push('-');
                 } else {
-                    while (!operators.isEmpty() &&
-                            (operators.peek() == '*' || operators.peek() == '+'
-                                    || operators.peek() == '-')) {
+                    while (!operators.isEmpty() && (operators.peek() == '*'
+                            || operators.peek() == '+' || operators.peek() == '-')) {
                         oneStepSimplify(operands, operators);
                     }
                     operators.push('-');
@@ -78,7 +76,7 @@ public class ExpressionEvaluator {
                         throw new MalformedExpressionException("mismatched parentheses, extra ')'");
                     }
                 }
-                operators.pop(); // remove '('
+                operators.pop();
             } else if (Character.isWhitespace(c)) {
                 int left = i - 1;
                 while (left >= 0 && Character.isWhitespace(expressionArray[left])) {
@@ -89,10 +87,8 @@ public class ExpressionEvaluator {
                         expressionArray[right])) {
                     right++;
                 }
-
-                if (left >= 0 && right < expressionArray.length
-                        && Character.isDigit(expressionArray[left])
-                        && Character.isDigit(expressionArray[right])) {
+                if (left >= 0 && right < expressionArray.length && Character.isDigit(
+                        expressionArray[left]) && Character.isDigit(expressionArray[right])) {
                     throw new MalformedExpressionException(
                             "whitespace inside a number is not allowed");
                 }
@@ -108,7 +104,6 @@ public class ExpressionEvaluator {
                     }
                     operators.push('*');
                 }
-
                 int index = i;
                 StringBuilder fullNumber = new StringBuilder();
                 while (index < expressionArray.length && Character.isDigit(
