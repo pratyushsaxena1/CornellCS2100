@@ -166,7 +166,7 @@ public class EvaluatorTest {
                 () -> ExpressionEvaluator.evaluate("3 +  "));
     }
 
-    @DisplayName("WHEN evaluating simple subtraction, THEN correct results are returned.")
+    @DisplayName("WHEN evaluating subtraction, THEN correct results are returned.")
     @Test
     public void testSimpleSubtraction() throws MalformedExpressionException {
         assertEquals(2, ExpressionEvaluator.evaluate("5-3"));
@@ -174,7 +174,7 @@ public class EvaluatorTest {
         assertEquals(-4, ExpressionEvaluator.evaluate("1-5"));
     }
 
-    @DisplayName("WHEN multiple subtractions are chained, THEN they are left-associative.")
+    @DisplayName("WHEN multiple subtractions are applied, THEN they are left-associative.")
     @Test
     public void testChainedSubtraction() throws MalformedExpressionException {
         assertEquals(7, ExpressionEvaluator.evaluate("10-2-1"));
@@ -182,7 +182,7 @@ public class EvaluatorTest {
         assertEquals(85, ExpressionEvaluator.evaluate("100-10-5"));
     }
 
-    @DisplayName("WHEN subtraction and addition are mixed, THEN left-associativity is preserved.")
+    @DisplayName("WHEN subtraction and addition are mixed, THEN left-associativity is still correct.")
     @Test
     public void testSubtractionAndAddition() throws MalformedExpressionException {
         assertEquals(9, ExpressionEvaluator.evaluate("10-2+1"));
@@ -190,7 +190,7 @@ public class EvaluatorTest {
         assertEquals(4, ExpressionEvaluator.evaluate("5-3+4-2"));
     }
 
-    @DisplayName("WHEN subtraction interacts with multiplication, THEN multiplication has higher precedence.")
+    @DisplayName("WHEN subtraction and multiplication are together, THEN multiplication has higher precedence.")
     @Test
     public void testSubtractionWithMultiplication() throws MalformedExpressionException {
         assertEquals(4, ExpressionEvaluator.evaluate("10-2*3"));
@@ -199,7 +199,7 @@ public class EvaluatorTest {
         assertEquals(-14, ExpressionEvaluator.evaluate("10-2*3*4"));
     }
 
-    @DisplayName("WHEN subtraction is combined with parentheses, THEN parentheses alter normal precedence.")
+    @DisplayName("WHEN subtraction is combined with parentheses, THEN parentheses change the normal precedence if necessary.")
     @Test
     public void testSubtractionWithParentheses() throws MalformedExpressionException {
         assertEquals(7, ExpressionEvaluator.evaluate("10-(2+1)"));
@@ -225,7 +225,7 @@ public class EvaluatorTest {
         assertEquals(5, ExpressionEvaluator.evaluate("--5"));
     }
 
-    @DisplayName("WHEN unary negation is combined with multiplication, THEN precedence and sign work correctly.")
+    @DisplayName("WHEN unary negation is combined with multiplication, THEN precedence and sign changes work correctly.")
     @Test
     public void testUnaryNegationWithMultiplication() throws MalformedExpressionException {
         assertEquals(-5, ExpressionEvaluator.evaluate("5*-1"));
@@ -240,6 +240,7 @@ public class EvaluatorTest {
         assertEquals(3, ExpressionEvaluator.evaluate("5+-2"));
         assertEquals(-7, ExpressionEvaluator.evaluate("-2-5"));
         assertEquals(11, ExpressionEvaluator.evaluate("20+-(3*3)"));
+        assertEquals(7, ExpressionEvaluator.evaluate("5+--2"));
     }
 
     @DisplayName("WHEN implicit multiplication occurs, THEN results are correct.")
@@ -254,5 +255,6 @@ public class EvaluatorTest {
         assertEquals(-6, ExpressionEvaluator.evaluate("(-2)3"));
         assertEquals(2, ExpressionEvaluator.evaluate("10-2(3+1)"));
         assertEquals(24, ExpressionEvaluator.evaluate("2(3)(4)"));
+        assertEquals(24, ExpressionEvaluator.evaluate("002(3)(4)"));
     }
 }

@@ -87,8 +87,9 @@ public class ExpressionEvaluator {
                         expressionArray[right])) {
                     right++;
                 }
-                if (left >= 0 && right < expressionArray.length && Character.isDigit(
-                        expressionArray[left]) && Character.isDigit(expressionArray[right])) {
+                if (left >= 0 && right < expressionArray.length && (expressionArray[left] >= '0'
+                        && expressionArray[left] <= '9') && (expressionArray[right] >= '0'
+                        && expressionArray[right] <= '9')) {
                     throw new MalformedExpressionException(
                             "whitespace inside a number is not allowed");
                 }
@@ -106,12 +107,20 @@ public class ExpressionEvaluator {
                 }
                 int index = i;
                 StringBuilder fullNumber = new StringBuilder();
-                while (index < expressionArray.length && Character.isDigit(
-                        expressionArray[index])) {
+                while (index < expressionArray.length && (expressionArray[index] >= '0'
+                        && expressionArray[index] <= '9')) {
                     fullNumber.append(expressionArray[index]);
                     index++;
                 }
-                operands.push(Integer.parseInt(fullNumber.toString()));
+                int num = 0;
+                for (int j = 0; j < fullNumber.length(); j++) {
+                    char d = fullNumber.charAt(j);
+                    if (d < '0' || d > '9') {
+                        throw new MalformedExpressionException("invalid digit in number");
+                    }
+                    num = num * 10 + (d - '0');
+                }
+                operands.push(num);
                 expectingOperator = true;
                 i = index - 1;
             }
