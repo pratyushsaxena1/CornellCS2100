@@ -301,5 +301,9 @@ public class EvaluatorTest {
                 () -> ExpressionEvaluator.evaluate("5555+*5555"));
         assertThrows(MalformedExpressionException.class,
                 () -> ExpressionEvaluator.evaluate("512***712"));
+        assertThrows(MalformedExpressionException.class,
+                () -> ExpressionEvaluator.evaluate("1+1+d"));
+        assertThrows(MalformedExpressionException.class,
+                () -> ExpressionEvaluator.evaluate("!!!!"));
     }
 }
