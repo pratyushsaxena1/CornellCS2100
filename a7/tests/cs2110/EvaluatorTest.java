@@ -317,5 +317,9 @@ public class EvaluatorTest {
                 () -> ExpressionEvaluator.evaluate("5+4-"));
         assertThrows(MalformedExpressionException.class,
                 () -> ExpressionEvaluator.evaluate("3=3"));
+        assertThrows(MalformedExpressionException.class,
+                () -> ExpressionEvaluator.evaluate("3   3"));
+        assertThrows(MalformedExpressionException.class,
+                () -> ExpressionEvaluator.evaluate("3\n3"));
     }
 }
