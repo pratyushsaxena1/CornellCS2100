@@ -18,6 +18,7 @@ public class ExpressionEvaluator {
 
         boolean expectingOperator = false; // in infix notation, the first operand comes before an operator
         char[] expressionArray = expr.toCharArray();
+
         for (int i = 0; i < expressionArray.length; i++) {
             char c = expressionArray[i];
             if (c == '(') {

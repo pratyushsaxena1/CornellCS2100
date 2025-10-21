@@ -241,6 +241,8 @@ public class EvaluatorTest {
         assertEquals(-7, ExpressionEvaluator.evaluate("-2-5"));
         assertEquals(11, ExpressionEvaluator.evaluate("20+-(3*3)"));
         assertEquals(7, ExpressionEvaluator.evaluate("5+--2"));
+        assertEquals(7, ExpressionEvaluator.evaluate("5-   -   2"));
+        assertEquals(7, ExpressionEvaluator.evaluate("- - 7"));
     }
 
     @DisplayName("WHEN implicit multiplication occurs, THEN results are correct.")
@@ -256,5 +258,48 @@ public class EvaluatorTest {
         assertEquals(2, ExpressionEvaluator.evaluate("10-2(3+1)"));
         assertEquals(24, ExpressionEvaluator.evaluate("2(3)(4)"));
         assertEquals(24, ExpressionEvaluator.evaluate("002(3)(4)"));
+    }
+
+    @DisplayName("WHEN expressions are malformed in various ways, THEN an exception is thrown.")
+    @Test
+    public void testMalformedExpressions() throws MalformedExpressionException {
+        assertThrows(MalformedExpressionException.class,
+                () -> ExpressionEvaluator.evaluate("+5+7"));
+        assertThrows(MalformedExpressionException.class, () -> ExpressionEvaluator.evaluate("5 7"));
+        assertThrows(MalformedExpressionException.class,
+                () -> ExpressionEvaluator.evaluate("-5 7"));
+        assertThrows(MalformedExpressionException.class, () -> ExpressionEvaluator.evaluate("+57"));
+        assertThrows(MalformedExpressionException.class,
+                () -> ExpressionEvaluator.evaluate("+5+7"));
+        assertThrows(MalformedExpressionException.class,
+                () -> ExpressionEvaluator.evaluate("5-7-"));
+        assertThrows(MalformedExpressionException.class,
+                () -> ExpressionEvaluator.evaluate("5+7)"));
+        assertThrows(MalformedExpressionException.class,
+                () -> ExpressionEvaluator.evaluate("(5+7"));
+        assertThrows(MalformedExpressionException.class,
+                () -> ExpressionEvaluator.evaluate("5+*7"));
+        assertThrows(MalformedExpressionException.class,
+                () -> ExpressionEvaluator.evaluate("5***7"));
+        assertThrows(MalformedExpressionException.class,
+                () -> ExpressionEvaluator.evaluate("+34+7"));
+        assertThrows(MalformedExpressionException.class,
+                () -> ExpressionEvaluator.evaluate("5 765"));
+        assertThrows(MalformedExpressionException.class,
+                () -> ExpressionEvaluator.evaluate("-5 222"));
+        assertThrows(MalformedExpressionException.class,
+                () -> ExpressionEvaluator.evaluate("+545"));
+        assertThrows(MalformedExpressionException.class,
+                () -> ExpressionEvaluator.evaluate("+512+721"));
+        assertThrows(MalformedExpressionException.class,
+                () -> ExpressionEvaluator.evaluate("5-72-"));
+        assertThrows(MalformedExpressionException.class,
+                () -> ExpressionEvaluator.evaluate("5+7323)"));
+        assertThrows(MalformedExpressionException.class,
+                () -> ExpressionEvaluator.evaluate("(5+732"));
+        assertThrows(MalformedExpressionException.class,
+                () -> ExpressionEvaluator.evaluate("5555+*5555"));
+        assertThrows(MalformedExpressionException.class,
+                () -> ExpressionEvaluator.evaluate("512***712"));
     }
 }
