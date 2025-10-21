@@ -304,6 +304,18 @@ public class EvaluatorTest {
         assertThrows(MalformedExpressionException.class,
                 () -> ExpressionEvaluator.evaluate("1+1+d"));
         assertThrows(MalformedExpressionException.class,
-                () -> ExpressionEvaluator.evaluate("!!!!"));
+                () -> ExpressionEvaluator.evaluate("!"));
+        assertThrows(MalformedExpressionException.class,
+                () -> ExpressionEvaluator.evaluate("+6"));
+        assertThrows(MalformedExpressionException.class,
+                () -> ExpressionEvaluator.evaluate("3(++)6"));
+        assertThrows(MalformedExpressionException.class,
+                () -> ExpressionEvaluator.evaluate("3++5"));
+        assertThrows(MalformedExpressionException.class,
+                () -> ExpressionEvaluator.evaluate("348349-+213"));
+        assertThrows(MalformedExpressionException.class,
+                () -> ExpressionEvaluator.evaluate("5+4-"));
+        assertThrows(MalformedExpressionException.class,
+                () -> ExpressionEvaluator.evaluate("3=3"));
     }
 }
